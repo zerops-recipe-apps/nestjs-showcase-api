@@ -258,23 +258,7 @@ Pick own-key names DIFFERENT from the platform side. Declaring `db_hostname: ${d
 
 <!-- #ZEROPS_EXTRACT_START:knowledge-base# -->
 
-### No `.env` file in the deployed tree
+### Object-storage runs on a MinIO backend
 
-Zerops injects every cross-service alias (`DB_*`, `NATS_*`, `S3_*`, `SEARCH_*`, `CACHE_*`) and every project-level secret directly as OS env vars. NestJS's `ConfigModule.forRoot()` defaults to reading `.env` from the working directory and merging keys into `process.env` — if a committed (or build-time generated) `.env` ships empty placeholder values, those values overwrite the platform-injected ones inside the running container. The symptom is silent connection failures: Postgres `getaddrinfo ENOTFOUND ${db_hostname}` or NATS `Invalid URL`. Pass `ignoreEnvFile: true` to disable dotenv loading entirely.
-
-### Custom response headers return `undefined` from the SPA but show up in `curl`
-
-Browsers hide every non-CORS-safelisted response header from cross-origin JS unless the server lists them in the `Access-Control-Expose-Headers` response. `curl` ignores the directive, so a header that prints fine from a shell call returns `null` when the SPA reads `fetch().headers.get('X-Cache')`. The api + spa pair runs on different Zerops subdomains by default, so every fetch IS cross-origin — enumerate every custom header you want the browser to read:
-
-```ts
-app.enableCors({
-  origin: allowedOrigins,
-  credentials: true,
-  exposedHeaders: ['X-Cache', 'X-Cache-Elapsed-Ms'],
-});
-```
-
-### `ListObjectsV2` returns oldest-first, not newest-first
-
-S3-compatible APIs sort results in lexicographic key order, not by recency. With timestamp-prefixed keys (`uploads/<epochMs>-<filename>`) the order is monotonic numeric — but that means the freshest upload lands at the BOTTOM of a paginated response. If the UI contract is newest-first, sort by `LastModified` DESC server-side AFTER the list call and before slicing the top N. Without this sort, every successful upload appears at the bottom of a chip-list and dashboards read yesterday's file as "the latest one".
+The data plane (PutObject, GetObject, ListObjectsV2, multipart uploads, pre-signed URLs) is S3-compatible end-to-end. Control-plane and AWS-only features aren't on the managed backend: no archival tiers (Glacier, Deep Archive), no Object Lock / WORM, no lifecycle rules, no S3 Select or Inventory, no Transfer Acceleration, no CloudFront integration. Adapting this recipe to a product that needs any of those means planning a separate AWS S3 tier alongside; the rest of the recipe stays intact.
 <!-- #ZEROPS_EXTRACT_END:knowledge-base# -->
