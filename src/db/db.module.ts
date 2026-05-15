@@ -1,7 +1,8 @@
 import { Global, Module } from '@nestjs/common';
 import { Pool } from 'pg';
+import { PG_POOL } from './db.tokens';
 
-export const PG_POOL = 'PG_POOL';
+export { PG_POOL };
 
 @Global()
 @Module({

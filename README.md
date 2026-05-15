@@ -1,4 +1,4 @@
-# Zerops x NestJS Showcase
+# Zerops x NestJS Showcase API
 
 <!-- #ZEROPS_EXTRACT_START:intro# -->
 <!-- #ZEROPS_EXTRACT_END:intro# -->

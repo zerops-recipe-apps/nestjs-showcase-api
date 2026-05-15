@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { HealthController } from './health/health.controller';
-import { ItemsController } from './items/items.controller';
-import { ItemsService } from './items/items.service';
+import { ServicesController } from './health/services.controller';
+import { ItemsModule } from './items/items.module';
 import { DbModule } from './db/db.module';
 import { CacheModule } from './cache/cache.module';
 import { BrokerModule } from './broker/broker.module';
@@ -17,8 +17,8 @@ import { SearchModule } from './search/search.module';
     BrokerModule,
     StorageModule,
     SearchModule,
+    ItemsModule,
   ],
-  controllers: [HealthController, ItemsController],
-  providers: [ItemsService],
+  controllers: [HealthController, ServicesController],
 })
 export class AppModule {}
