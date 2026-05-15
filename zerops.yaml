@@ -26,7 +26,6 @@ zerops:
         - port: 3000
           httpSupport: true
       envVariables:
-        NODE_ENV: production
         PORT: 3000
         DB_HOST: ${db_hostname}
         DB_PORT: ${db_port}
@@ -46,7 +45,6 @@ zerops:
         S3_SECRET_ACCESS_KEY: ${storage_secretAccessKey}
         SEARCH_URL: ${search_connectionString}
         SEARCH_MASTER_KEY: ${search_masterKey}
-        SEARCH_PUBLIC_KEY: ${search_defaultSearchKey}
       start: node dist/main.js
       healthCheck:
         httpGet:
@@ -68,7 +66,6 @@ zerops:
         - port: 3000
           httpSupport: true
       envVariables:
-        NODE_ENV: development
         PORT: 3000
         DB_HOST: ${db_hostname}
         DB_PORT: ${db_port}
@@ -88,7 +85,6 @@ zerops:
         S3_SECRET_ACCESS_KEY: ${storage_secretAccessKey}
         SEARCH_URL: ${search_connectionString}
         SEARCH_MASTER_KEY: ${search_masterKey}
-        SEARCH_PUBLIC_KEY: ${search_defaultSearchKey}
       initCommands:
         - zsc execOnce ${appVersionId}-migrate --retryUntilSuccessful -- npx ts-node src/scripts/migrate.ts
         - zsc execOnce ${appVersionId}-seed --retryUntilSuccessful -- npx ts-node src/scripts/seed.ts
