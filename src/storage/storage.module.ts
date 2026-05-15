@@ -1,10 +1,14 @@
 import { Global, Module } from '@nestjs/common';
 import { S3Client } from '@aws-sdk/client-s3';
+import { StorageController } from './storage.controller';
+import { StorageService } from './storage.service';
+import { STORAGE_BUCKET, STORAGE_CLIENT } from './storage.tokens';
 
-export const STORAGE_CLIENT = 'STORAGE_CLIENT';
+export { STORAGE_BUCKET, STORAGE_CLIENT };
 
 @Global()
 @Module({
+  controllers: [StorageController],
   providers: [
     {
       provide: STORAGE_CLIENT,
@@ -24,7 +28,12 @@ export const STORAGE_CLIENT = 'STORAGE_CLIENT';
         });
       },
     },
+    {
+      provide: STORAGE_BUCKET,
+      useFactory: () => process.env.S3_BUCKET ?? '',
+    },
+    StorageService,
   ],
-  exports: [STORAGE_CLIENT],
+  exports: [STORAGE_CLIENT, STORAGE_BUCKET, StorageService],
 })
 export class StorageModule {}
