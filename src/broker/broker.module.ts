@@ -1,7 +1,9 @@
 import { Global, Logger, Module, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { connect, NatsConnection } from 'nats';
+import { QueueController } from './queue.controller';
+import { BROKER_CLIENT } from './broker.tokens';
 
-export const BROKER_CLIENT = 'BROKER_CLIENT';
+export { BROKER_CLIENT };
 
 class BrokerHolder implements OnModuleInit, OnModuleDestroy {
   private readonly logger = new Logger('Broker');
@@ -37,6 +39,7 @@ class BrokerHolder implements OnModuleInit, OnModuleDestroy {
 
 @Global()
 @Module({
+  controllers: [QueueController],
   providers: [
     {
       provide: BROKER_CLIENT,
