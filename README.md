@@ -1,3 +1,24 @@
+# Zerops x NestJS Showcase
+
+<!-- #ZEROPS_EXTRACT_START:intro# -->
+<!-- #ZEROPS_EXTRACT_END:intro# -->
+
+![nestjs cover](https://github.com/zeropsio/recipe-shared-assets/blob/main/covers/svg/cover-nestjs.svg)
+
+## Deploy to Zerops
+
+Click the deploy button to deploy directly to Zerops.
+
+[![Deploy on Zerops](https://github.com/zeropsio/recipe-shared-assets/blob/main/deploy-button/light/deploy-button.svg)](https://app.zerops.io/recipes/nestjs-showcase?environment=small-production)
+
+## Integration Guide
+
+<!-- #ZEROPS_EXTRACT_START:integration-guide# -->
+### 1. Adding `zerops.yaml`
+
+The main configuration file — place at repository root. It tells Zerops how to build, deploy and run your app. This one declares 2 setups (`dev`, `prod`), runs `initCommands` at boot (migrations, seed), and ships readiness + health checks.
+
+```yaml
 zerops:
   - setup: prod
     build:
@@ -93,3 +114,11 @@ zerops:
         - zsc execOnce ${appVersionId}-migrate --retryUntilSuccessful -- npx ts-node src/scripts/migrate.ts
         - zsc execOnce ${appVersionId}-seed --retryUntilSuccessful -- npx ts-node src/scripts/seed.ts
       start: zsc noop --silent
+```
+<!-- #ZEROPS_EXTRACT_END:integration-guide# -->
+
+<!-- #ZEROPS_EXTRACT_START:knowledge-base# -->
+
+### Gotchas
+
+<!-- #ZEROPS_EXTRACT_END:knowledge-base# -->
