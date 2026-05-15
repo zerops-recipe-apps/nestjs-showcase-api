@@ -1,10 +1,14 @@
 import { Global, Module } from '@nestjs/common';
 import Redis from 'ioredis';
+import { CacheController } from './cache.controller';
+import { CacheService } from './cache.service';
+import { CACHE_CLIENT } from './cache.tokens';
 
-export const CACHE_CLIENT = 'CACHE_CLIENT';
+export { CACHE_CLIENT };
 
 @Global()
 @Module({
+  controllers: [CacheController],
   providers: [
     {
       provide: CACHE_CLIENT,
@@ -22,7 +26,8 @@ export const CACHE_CLIENT = 'CACHE_CLIENT';
         return client;
       },
     },
+    CacheService,
   ],
-  exports: [CACHE_CLIENT],
+  exports: [CACHE_CLIENT, CacheService],
 })
 export class CacheModule {}

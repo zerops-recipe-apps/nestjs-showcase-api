@@ -20,6 +20,12 @@ async function bootstrap() {
   app.enableCors({
     origin: allowedOrigins.length ? allowedOrigins : true,
     credentials: true,
+    // Custom response headers must be enumerated in exposedHeaders for
+    // cross-origin JS to read them. Browsers hide every non-CORS-
+    // safelisted header by default; curl ignores this list, but the
+    // SPA's cache panel needs X-Cache + X-Cache-Elapsed-Ms to decide
+    // hit-vs-miss styling.
+    exposedHeaders: ['X-Cache', 'X-Cache-Elapsed-Ms'],
   });
 
   app.setGlobalPrefix('api');
