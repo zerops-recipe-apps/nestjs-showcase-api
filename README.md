@@ -100,12 +100,13 @@ zerops:
         DB_USER: ${db_user}
         DB_PASSWORD: ${db_password}
         DB_NAME: ${db_dbName}
-        # Valkey on Zerops is unauthenticated; only host + port are
-        # injected. Referencing `${cache_user}` or `${cache_password}`
-        # would resolve to literal token strings — ioredis would then
-        # send garbage `AUTH` on every command.
+        # Valkey on Zerops REQUIRES auth — wire ${cache_password} (an
+        # unauthenticated connection fails with `NOAUTH Authentication
+        # required`). There is no separate ${cache_user} (default user +
+        # password); ioredis takes the password via its `password` option.
         CACHE_HOST: ${cache_hostname}
         CACHE_PORT: ${cache_port}
+        CACHE_PASSWORD: ${cache_password}
         # NATS Pattern A — host, port, user, pass as separate alias keys.
         # The connection-string alternative double-authenticates (URL
         # credentials + SASL) and the broker rejects the first CONNECT
