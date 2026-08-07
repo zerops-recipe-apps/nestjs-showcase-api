@@ -4,7 +4,7 @@ import {
   Logger,
   OnApplicationBootstrap,
 } from '@nestjs/common';
-import { MeiliSearch, Index } from 'meilisearch';
+import { Meilisearch, Index } from 'meilisearch';
 import { ITEMS_INDEX, SEARCH_CLIENT } from './search.tokens';
 import { ItemsService, Item } from '../items/items.service';
 
@@ -20,7 +20,7 @@ export class SearchIndexerService implements OnApplicationBootstrap {
   private readonly logger = new Logger('SearchIndexer');
 
   constructor(
-    @Inject(SEARCH_CLIENT) private readonly client: MeiliSearch,
+    @Inject(SEARCH_CLIENT) private readonly client: Meilisearch,
     private readonly items: ItemsService,
   ) {}
 

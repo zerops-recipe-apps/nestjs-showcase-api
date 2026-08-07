@@ -1,7 +1,7 @@
 import { Controller, Get, Inject } from '@nestjs/common';
 import type { NatsConnection } from 'nats';
 import type Redis from 'ioredis';
-import type { MeiliSearch } from 'meilisearch';
+import type { Meilisearch } from 'meilisearch';
 import { HeadBucketCommand, S3Client } from '@aws-sdk/client-s3';
 import { Pool } from 'pg';
 import { PG_POOL } from '../db/db.module';
@@ -24,7 +24,7 @@ export class ServicesController {
     @Inject(BROKER_CLIENT) private readonly broker: { nc: NatsConnection | null },
     @Inject(STORAGE_CLIENT) private readonly s3: S3Client,
     @Inject(STORAGE_BUCKET) private readonly bucket: string,
-    @Inject(SEARCH_CLIENT) private readonly search: MeiliSearch,
+    @Inject(SEARCH_CLIENT) private readonly search: Meilisearch,
   ) {}
 
   @Get('state')
