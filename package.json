@@ -14,7 +14,7 @@
   },
   "private": true,
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=22.12.0"
   },
   "scripts": {
     "build": "nest build",
@@ -28,10 +28,10 @@
   "dependencies": {
     "@aws-sdk/client-s3": "3.1103.0",
     "@aws-sdk/s3-request-presigner": "3.1103.0",
-    "@nestjs/common": "11.1.28",
-    "@nestjs/config": "4.0.4",
-    "@nestjs/core": "11.1.28",
-    "@nestjs/platform-express": "11.1.28",
+    "@nestjs/common": "12.0.1",
+    "@nestjs/config": "12.0.0",
+    "@nestjs/core": "12.0.1",
+    "@nestjs/platform-express": "12.0.1",
     "ioredis": "5.9.3",
     "meilisearch": "0.60.0",
     "nats": "2.29.3",
@@ -40,14 +40,14 @@
     "rxjs": "7.8.2"
   },
   "devDependencies": {
-    "@nestjs/cli": "11.0.24",
+    "@nestjs/cli": "12.0.0",
     "@types/express": "5.0.6",
     "@types/node": "26.1.1",
     "@types/pg": "8.20.0",
     "ts-loader": "9.5.4",
     "ts-node": "10.9.2",
     "tsconfig-paths": "4.2.0",
-    "typescript": "5.9.3"
+    "typescript": "6.0.3"
   },
   "keywords": [
     "nestjs",
@@ -74,6 +74,7 @@
     "uuid": "11.1.1",
     "qs": "6.15.2",
     "@babel/core": "7.29.7",
-    "body-parser": "2.3.0"
+    "body-parser": "2.3.0",
+    "browserslist": "4.28.8"
   }
 }

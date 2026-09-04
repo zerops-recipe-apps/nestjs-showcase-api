@@ -1,6 +1,6 @@
 # nestjs-showcase-api
 
-NestJS 11 HTTP API for the showcase recipe. Exposes a global `/api` prefix with REST endpoints for items CRUD plus per-service demo routes for Postgres, Valkey cache, NATS, S3-compatible storage, and Meilisearch.
+NestJS 12 HTTP API for the showcase recipe. Exposes a global `/api` prefix with REST endpoints for items CRUD plus per-service demo routes for Postgres, Valkey cache, NATS, S3-compatible storage, and Meilisearch.
 
 ## Zerops service facts
 
