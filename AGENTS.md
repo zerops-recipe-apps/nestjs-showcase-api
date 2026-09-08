@@ -6,7 +6,7 @@ NestJS 12 HTTP API for the showcase recipe. Exposes a global `/api` prefix with 
 
 - HTTP port: `3000`
 - Siblings: `db`, `cache`, `broker`, `storage`, `search` — env aliases: `DB_*`, `CACHE_*`, `NATS_*`, `S3_*`, `SEARCH_*`
-- Runtime base: `nodejs@22`
+- Runtime base: `nodejs@24`
 
 ## Zerops dev
 
@@ -19,7 +19,7 @@ NestJS 12 HTTP API for the showcase recipe. Exposes a global `/api` prefix with 
 
 ## Notes
 
-- Prod build: `npm ci`, `npm run build`, `npm prune --omit=dev`.
+- Prod build: `npm ci --include=dev`, `npm run build`, `npm prune --omit=dev`.
 - Migrations and seed run via `zsc execOnce ${appVersionId}-migrate` / `-seed` before `start`.
 - `GET /api/health` is the readiness and health endpoint — shallow check, no downstream fan-out.
 - Never create `.env` files — Zerops injects env vars at the OS level.
