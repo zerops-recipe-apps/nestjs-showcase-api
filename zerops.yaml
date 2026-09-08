@@ -6,15 +6,15 @@
 zerops:
   - setup: prod
     build:
-      # nodejs@22 matches run.base so the compiled dist/ is emitted
+      # nodejs@24 matches run.base so the compiled dist/ is emitted
       # against the same Node major it runs against.
-      base: nodejs@22
+      base: nodejs@24
       buildCommands:
         # `npm ci` for reproducible, lockfile-pinned installs; `nest build`
         # emits the compiled bundle to `dist/`; `npm prune --omit=dev` strips
         # devDependencies so the runtime container ships only what `node
         # dist/main.js` needs.
-        - npm ci
+        - npm ci --include=dev
         - npm run build
         - npm prune --omit=dev
       # Narrow deploy set — source TypeScript, tests, and dev tooling
@@ -40,7 +40,7 @@ zerops:
           port: 3000
           path: /api/health
     run:
-      base: nodejs@22
+      base: nodejs@24
       # Migrate and seed each gate on `zsc execOnce` with a per-deploy key
       # (`${appVersionId}` resolves to a fresh string every deploy), so
       # each script runs exactly once per deploy across all replicas.
@@ -121,7 +121,7 @@ zerops:
 
   - setup: dev
     build:
-      base: nodejs@22
+      base: nodejs@24
       buildCommands:
         # `npm install` (not `npm ci`) because the dev workflow tolerates
         # lockfile drift while iterating on dependencies.
@@ -134,7 +134,7 @@ zerops:
       cache:
         - node_modules
     run:
-      base: nodejs@22
+      base: nodejs@24
       # Ubuntu base — gives the porter the standard CLI toolset (apt,
       # git, etc.) when they SSH in to iterate on the source tree.
       os: ubuntu
